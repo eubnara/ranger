@@ -421,7 +421,7 @@ public class LdapUserGroupBuilder implements UserGroupSource {
 				// Incrementing highestdeltaSyncUserTime (for AD) in order to avoid search record repetition for next sync cycle.
 				deltaSyncUserTime = highestdeltaSyncUserTime + 1;
 				// Incrementing the highest timestamp value (for Openldap) with 1sec in order to avoid search record repetition for next sync cycle.
-				deltaSyncUserTimeStamp = dateFormat.format(new Date(highestdeltaSyncUserTime + 60l));
+				deltaSyncUserTimeStamp = dateFormat.format(new Date(highestdeltaSyncUserTime + 1000l));
 			}
 
 			LOG.info("deltaSyncGroupTime = " + deltaSyncGroupTime + " and highestdeltaSyncGroupTime = " + highestdeltaSyncGroupTime);
@@ -430,7 +430,7 @@ public class LdapUserGroupBuilder implements UserGroupSource {
 				// Incrementing highestdeltaSyncGroupTime (for AD) in order to avoid search record repetition for next sync cycle.
 				deltaSyncGroupTime = highestdeltaSyncGroupTime+1;
 				// Incrementing the highest timestamp value (for OpenLdap) with 1min in order to avoid search record repetition for next sync cycle.
-				deltaSyncGroupTimeStamp = dateFormat.format(new Date(highestdeltaSyncGroupTime + 60l));
+				deltaSyncGroupTimeStamp = dateFormat.format(new Date(highestdeltaSyncGroupTime + 1000l));
 			}
 		} catch (Throwable t) {
 			LOG.error("Failed to update ranger admin. Will retry in next sync cycle!!", t);
