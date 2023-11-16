@@ -3608,9 +3608,12 @@ public class ServiceDBStore extends AbstractServiceStore {
 						MessageEnums.INVALID_INPUT_DATA);
 			}
 
-			if (StringUtils.equals(svcConfDef.getName(), RANGER_PLUGIN_AUDIT_FILTERS) && !configs.containsKey(RANGER_PLUGIN_AUDIT_FILTERS)) {
-				if (svcConfDef.getDefaultvalue() != null) {
+			if (StringUtils.equals(svcConfDef.getName(), RANGER_PLUGIN_AUDIT_FILTERS)) {
+				if (svcConfDef.getDefaultvalue() != null && !configs.containsKey(RANGER_PLUGIN_AUDIT_FILTERS)) {
 					configs.put(RANGER_PLUGIN_AUDIT_FILTERS, svcConfDef.getDefaultvalue());
+				}
+				if (!stringUtil.isEmpty(configs.get(RANGER_PLUGIN_AUDIT_FILTERS)) && JsonUtils.jsonToAuditFilterList(configs.get(RANGER_PLUGIN_AUDIT_FILTERS)) == null) {
+					throw restErrorUtil.createRESTException("Invalid value for " + svcConfDef.getName());
 				}
 			}
 		}
@@ -6078,8 +6081,6 @@ public class ServiceDBStore extends AbstractServiceStore {
 
 	/**
 	 * Removes given service from security zones.
-	 * And if given service is the only service
-	 * associated with security zone, remove zone.
 	 * @param service
 	 * @throws Exception
 	 */
@@ -6096,9 +6097,6 @@ public class ServiceDBStore extends AbstractServiceStore {
 					securityZone.setServices(zoneServices);
 					securityZoneStore.updateSecurityZoneById(securityZone);
 
-					if (zoneServices.isEmpty()) {
-						securityZoneStore.deleteSecurityZoneByName(zoneName);
-					}
 				}
 			}
 		}

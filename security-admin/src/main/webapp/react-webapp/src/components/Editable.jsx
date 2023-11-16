@@ -17,13 +17,7 @@
  * under the License.
  */
 
-import React, {
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-  useCallback
-} from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import {
   OverlayTrigger,
   Popover,
@@ -33,7 +27,7 @@ import {
   Col,
   Badge
 } from "react-bootstrap";
-import { find, findIndex, isArray, isEmpty, map } from "lodash";
+import { find, findIndex, isArray, isEmpty, sortBy } from "lodash";
 import { isObject } from "Utils/XAUtils";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
@@ -63,7 +57,7 @@ const CheckboxComp = (props) => {
     setVal(val);
   };
 
-  const handleAllChekced = (e) => {
+  const handleAllChecked = (e) => {
     let val = [];
     if (e.target.checked) {
       val = [...options];
@@ -82,7 +76,7 @@ const CheckboxComp = (props) => {
 
   return (
     <>
-      {options.map((obj, index) => (
+      {options.map((obj) => (
         <Form.Group className="mb-3" controlId={obj.label} key={obj.label}>
           <Form.Check
             checked={isChecked(obj)}
@@ -92,13 +86,13 @@ const CheckboxComp = (props) => {
           />
         </Form.Group>
       ))}
-      {showSelectAll && (
-        <Form.Group className="mb-3">
+      {showSelectAll && options?.length > 1 && (
+        <Form.Group className="mb-3" controlId={selectAllLabel}>
           <Form.Check
             checked={isAllChecked()}
             type="checkbox"
             label={selectAllLabel}
-            onChange={(e) => handleAllChekced(e)}
+            onChange={(e) => handleAllChecked(e)}
           />
         </Form.Group>
       )}
@@ -132,7 +126,7 @@ const RadioBtnComp = (props) => {
   ));
 };
 
-const InputboxComp = (props) => {
+const InputBoxComp = (props) => {
   const { value = "", valRef } = props;
   const [selectedInputVal, setInputVal] = useState(value);
   const handleChange = (e) => {
@@ -255,7 +249,7 @@ const CustomCondition = (props) => {
                           position="right"
                           message={
                             <p className="pd-10">
-                              {RegexMessage.MESSAGE.policyconditioninfoicon}
+                              {RegexMessage.MESSAGE.policyConditionInfoIcon}
                             </p>
                           }
                         />
@@ -318,7 +312,7 @@ const CustomCondition = (props) => {
   );
 };
 
-const innitialState = (props) => {
+const initialState = (props) => {
   const { type, selectProps, value } = props;
   let val = value;
   if (!val) {
@@ -375,7 +369,7 @@ const Editable = (props) => {
     state: false,
     errorMSG: ""
   });
-  const [state, dispatch] = useReducer(reducer, props, innitialState);
+  const [state, dispatch] = useReducer(reducer, props, initialState);
   const { show, value, target } = state;
   let isListenerAttached = false;
 
@@ -409,7 +403,7 @@ const Editable = (props) => {
     const policyConditionDisplayValue = () => {
       let ipRangVal, uiHintVal;
       if (selectVal) {
-        return _.sortBy(Object.keys(selectVal)).map((property, index) => {
+        return sortBy(Object.keys(selectVal)).map((property, index) => {
           let conditionObj = find(conditionDefVal, function (m) {
             if (m.name == property) {
               return m;
@@ -651,7 +645,7 @@ const Editable = (props) => {
   const handleApply = (e) => {
     let errors, uiHintVal;
     if (selectValRef?.current) {
-      _.sortBy(Object.keys(selectValRef.current)).map((property) => {
+      sortBy(Object.keys(selectValRef.current)).map((property) => {
         let conditionObj = find(conditionDefVal, function (m) {
           if (m.name == property) {
             return m;
@@ -689,7 +683,7 @@ const Editable = (props) => {
     }
   };
 
-  const handleClose = (e) => {
+  const handleClose = () => {
     setValidated({ state: false, errorMSG: "" });
     dispatch({
       type: "SET_POPOVER",
@@ -702,7 +696,7 @@ const Editable = (props) => {
     <Popover
       id="popover-basic"
       className={`editable-popover ${
-        type === TYPE_CHECKBOX && "popover-maxHeight"
+        type === TYPE_CHECKBOX && "popover-maxHeight popover-minHeight"
       }`}
     >
       <Popover.Title>
@@ -720,7 +714,7 @@ const Editable = (props) => {
         ) : type === TYPE_RADIO ? (
           <RadioBtnComp value={value} options={options} valRef={selectValRef} />
         ) : type === TYPE_INPUT ? (
-          <InputboxComp value={value} valRef={selectValRef} />
+          <InputBoxComp value={value} valRef={selectValRef} />
         ) : type === TYPE_CUSTOM ? (
           <CustomCondition
             value={value}
