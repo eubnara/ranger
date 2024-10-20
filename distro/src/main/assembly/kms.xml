@@ -40,7 +40,6 @@
                         <includes>
                     <include>org.apache.hadoop:hadoop-client-api:jar:${hadoop.version}</include>
                     <include>org.apache.hadoop:hadoop-client-runtime:jar:${hadoop.version}</include>
-                    <include>org.apache.hadoop.thirdparty:hadoop-shaded-guava:jar:${hadoop-shaded-guava.version}</include>
                     <include>org.eclipse.persistence:eclipselink</include>
                     <include>org.eclipse.persistence:javax.persistence</include>
                     <include>com.googlecode.log4jdbc:log4jdbc</include>
@@ -234,7 +233,6 @@
                     <include>org.codehaus.woodstox:stax2-api</include>
                     <include>com.fasterxml.woodstox:woodstox-core</include>
                     <include>org.apache.commons:commons-text:jar:${commons.text.version}</include>
-                    <include>org.apache.hadoop.thirdparty:hadoop-shaded-guava:jar:${hadoop-shaded-guava.version}</include>
                 </includes>
             </binaries>
         </moduleSet>
@@ -345,7 +343,6 @@
                             <include>org.apache.ranger:credentialbuilder</include>
                             <include>org.codehaus.woodstox:stax2-api</include>
                             <include>com.fasterxml.woodstox:woodstox-core</include>
-                            <include>org.apache.hadoop.thirdparty:hadoop-shaded-guava:jar:${hadoop-shaded-guava.version}</include>
                         </includes>
                     </dependencySet>
                 </dependencySets>
@@ -391,7 +388,6 @@
                     <include>com.fasterxml.woodstox:woodstox-core</include>
                     <include>org.apache.commons:commons-compress:jar:${commons.compress.version}</include>
                     <include>org.apache.commons:commons-lang3</include>
-                    <include>org.apache.hadoop.thirdparty:hadoop-shaded-guava:jar:${hadoop-shaded-guava.version}</include>
                 </includes>
             </binaries>
         </moduleSet>
