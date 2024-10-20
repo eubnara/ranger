@@ -170,21 +170,6 @@
     		<version>${httpcomponents.httpcore.version}</version>
 		</dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>${commons.text.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-configuration2</artifactId>
-            <version>${commons.configuration.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>${javax.el.version}</version>
-        </dependency>
-        <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-api</artifactId>
             <version>${io.opentelemetry.version}</version>
@@ -337,21 +322,6 @@
             <artifactId>hadoop-client-minicluster</artifactId>
             <version>${hadoop.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>${commons.text.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-configuration2</artifactId>
-            <version>${commons.configuration.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>${javax.el.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
